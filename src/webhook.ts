@@ -85,16 +85,20 @@ export const stripeWebhookHandler = async (
     try {
       const transporter = nodemailer.createTransport({
         host: "smtp.office365.com",
-        port: 587,
         secure: false,
+        port: 587,
+        requireTLS: true,
         auth: {
           user: "ajit@ajchavan.onmicrosoft.com",
           pass: process.env.OFFICE365_API_KEY,
         },
+        tls: {
+          ciphers: "SSLv3",
+        },
       });
 
       const info = await transporter.sendMail({
-        from: "DigitalHippo <onboarding@resend.dev>",
+        from: "Artify <ajit@ajchavan.onmicrosoft.com>",
         to: user.email,
         subject: "Thanks for your order! This is your receipt.",
         html: ReceiptEmailHtml({
