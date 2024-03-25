@@ -8,6 +8,7 @@ import bodyParser from "body-parser";
 import { IncomingMessage } from "http";
 import { stripeWebhookHandler } from "./webhook";
 import nextBuild from "next/dist/build";
+import path from "path";
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -48,7 +49,7 @@ const start = async () => {
     app.listen(PORT, async () => {
       payload.logger.info("Next.js is building for production");
 
-      // @ts-expect-error
+      //@ts-expect-error
       await nextBuild(path.join(__dirname, "../"));
 
       process.exit();
