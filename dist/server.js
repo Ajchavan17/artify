@@ -1,5 +1,5 @@
 "use strict";
-const path = require("path");
+
 var __createBinding =
   (this && this.__createBinding) ||
   (Object.create
