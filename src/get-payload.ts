@@ -39,13 +39,7 @@ export const getPayloadClient = async ({
   initOptions,
 }: Args = {}): Promise<Payload> => {
   if (!process.env.PAYLOAD_SECRET) {
-    throw new Error("PAYLOAD_SEECRET is missing");
-  }
-
-  const secret = process.env.PAYLOAD_SECRET;
-
-  if (!secret) {
-    throw new Error("PAYLOAD_SECRET is empty");
+    throw new Error("PAYLOAD_SECRET is missing");
   }
 
   if (cached.client) {
@@ -57,9 +51,9 @@ export const getPayloadClient = async ({
       email: {
         transport: transporter,
         fromAddress: "ajit@ajchavan.onmicrosoft.com",
-        fromName: "DigitalHippo",
+        fromName: "Artify",
       },
-      secret: secret,
+      secret: process.env.PAYLOAD_SECRET,
       local: initOptions?.express ? false : true,
       ...(initOptions || {}),
     });

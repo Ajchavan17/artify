@@ -10,6 +10,20 @@ import nodemailer from "nodemailer";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const transporter = nodemailer.createTransport({
+  host: "smtp.office365.com",
+  secure: false,
+  port: 587,
+  requireTLS: true,
+  auth: {
+    user: "ajit@ajchavan.onmicrosoft.com",
+    pass: process.env.OFFICE365_API_KEY, // Make sure to set your Outlook password in the environment variable
+  },
+  tls: {
+    ciphers: "SSLv3",
+  },
+});
+
 export const stripeWebhookHandler = async (
   req: express.Request,
   res: express.Response
@@ -83,22 +97,8 @@ export const stripeWebhookHandler = async (
 
     // send receipt
     try {
-      const transporter = nodemailer.createTransport({
-        host: "smtp.office365.com",
-        secure: false,
-        port: 587,
-        requireTLS: true,
-        auth: {
-          user: "ajit@ajchavan.onmicrosoft.com",
-          pass: process.env.OFFICE365_API_KEY,
-        },
-        tls: {
-          ciphers: "SSLv3",
-        },
-      });
-
-      const info = await transporter.sendMail({
-        from: "Artify <ajit@ajchavan.onmicrosoft.com>",
+      await transporter.sendMail({
+        from: "Artify ajit@ajchavan.onmicrosoft.com",
         to: user.email,
         subject: "Thanks for your order! This is your receipt.",
         html: ReceiptEmailHtml({
@@ -108,12 +108,9 @@ export const stripeWebhookHandler = async (
           products: order.products as Product[],
         }),
       });
-
-      console.log("Receipt email sent: ", info.response);
-      res.status(200).json({ message: "Receipt email sent successfully" });
+      res.status(200).json({ message: "Email sent successfully" });
     } catch (error) {
-      console.error("Error sending receipt email: ", error);
-      res.status(500).json({ error: "Failed to send receipt email" });
+      res.status(500).json({ error: "Failed to send email" });
     }
   }
 

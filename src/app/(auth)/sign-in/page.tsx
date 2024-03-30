@@ -22,8 +22,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 const Page = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const isSeller = searchParams.get("as") === "seller";
-  const origin = searchParams.get("origin");
+  const isSeller = searchParams !== null && searchParams.get("as") === "seller";
+  const origin = searchParams !== null ? searchParams.get("origin") : null;
 
   const continueAsSeller = () => {
     router.push("?as=seller");

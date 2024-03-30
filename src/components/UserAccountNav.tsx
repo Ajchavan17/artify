@@ -24,13 +24,23 @@ const UserAccountNav = ({ user }: { user: User }) => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="bg-white w-60" align="end">
-        <div className="flex items-center justify-start gap-2 p-2">
+        <div className="flex items-center justify-center gap-2 p-2">
           <div className="flex flex-col space-y-0.5 leading-none">
-            <p className="font-medium text-sm text-black">{user.email}</p>
+            <p className="font-medium text-xl text-black">Ajit Chavan</p>
+          </div>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 p-2">
+          <div className="flex flex-col space-y-0 leading-none">
+            <p className="font-medium text-xs text-blue-600">{user.email}</p>
           </div>
         </div>
 
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <Link href="/editprofile">Edit Profile</Link>
+        </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
           <Link href="/sell">Seller Dashboard</Link>
