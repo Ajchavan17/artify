@@ -26,7 +26,7 @@ function formatPrice(price, options) {
     if (options === void 0) { options = {}; }
     var _a = options.currency, currency = _a === void 0 ? "INR" : _a;
     var numericPrice = typeof price === "string" ? parseFloat(price) : price;
-    var notation = "standard"; // Default notation
+    var notation = "standard";
     // Check if the price is greater than or equal to 1000
     if (Math.abs(numericPrice) >= 1000 && Math.abs(numericPrice) < 1000000) {
         notation = "compact"; // Use compact notation for thousands
@@ -57,7 +57,7 @@ function constructMetadata(_a) {
             description: description,
             images: [image],
             creator: "@joshtriedcoding",
-        }, icons: icons, metadataBase: new URL("https://digitalhippo.up.railway.app") }, (noIndex && {
+        }, icons: icons, metadataBase: new URL("https://artify-production.up.railway.app") }, (noIndex && {
         robots: {
             index: false,
             follow: false,

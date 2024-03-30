@@ -10,13 +10,14 @@ export function formatPrice(
   price: number | string,
   options: {
     currency?: "INR";
+    notation?: Intl.NumberFormatOptions["notation"];
   } = {}
 ) {
   const { currency = "INR" } = options;
 
   const numericPrice = typeof price === "string" ? parseFloat(price) : price;
 
-  let notation = "standard"; // Default notation
+  let notation = "standard";
 
   // Check if the price is greater than or equal to 1000
   if (Math.abs(numericPrice) >= 1000 && Math.abs(numericPrice) < 1000000) {
@@ -28,7 +29,6 @@ export function formatPrice(
   return new Intl.NumberFormat("en-IN", {
     style: "currency",
     currency,
-
     maximumFractionDigits: 2,
   }).format(numericPrice);
 }
@@ -66,7 +66,7 @@ export function constructMetadata({
       creator: "@joshtriedcoding",
     },
     icons,
-    metadataBase: new URL("https://digitalhippo.up.railway.app"),
+    metadataBase: new URL("https://artify-production.up.railway.app"),
     ...(noIndex && {
       robots: {
         index: false,
